@@ -9,8 +9,8 @@
   "author": "Yunlei",
   "license": "ISC",
   "dependencies": {
-    "crypto-js": "^3.1.9-1",
-    "express": "^4.16.3",
-    "level": "^4.0.0"
+    "crypto-js": "*",
+    "express": "*",
+    "level": "*"
   }
 }
