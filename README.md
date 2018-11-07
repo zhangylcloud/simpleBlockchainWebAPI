@@ -7,13 +7,17 @@ Express
 ## Endpoint
 1) GET:
   http://localhost:8000/block/#
+
   Where # is the block height you want to get
+
   We can use broswer directly to test GET, for example:
+
   http://localhost:8000/block/0  should return the genesis block
   
 
 2) POST:
   http://localhost:8000/block
+
   We can use cURL or postman to test post, the newly added block will be returned
 
 ## How to install
