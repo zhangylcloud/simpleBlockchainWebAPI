@@ -69,15 +69,6 @@ module.exports = class Blockchain{
 
   // Get block height
   async getBlockHeight(){
-    //let height = -1;
-    //return await new Promise(function(resolve, reject){
-    //  level.createReadStream().on('data', function(data){
-    //    height++;
-    //  }).on('end', function(){
-    //    resolve(height);
-    //  });
-    //});
-    
     //The index of the last key is what we wanted, so we -1 here
     return await level.getNumKeys() - 1; 
   }
