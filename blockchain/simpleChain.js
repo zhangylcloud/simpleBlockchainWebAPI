@@ -9,24 +9,27 @@ const Block = require('./block');
 const Level = require('../level/levelDbWrapper');
 
 
-//console.log(Level);
-//console.log(Block);
-
-//let block = new Block("abc");
 let level = new Level();
 
-class Blockchain{
+module.exports = class Blockchain{
   //Initialize blockchain
   async initialize(){
     console.log("Start initializing blockchain object");
+    
     let height = await this.getBlockHeight();
     if(height == -1){
       console.log("Creating genesis block");
-      await this.addBlock(new Block("GenesisBlock"))
+      await this.addBlock(new Block("GenesisBlock"));
       console.log("Create Genesis block done");
     }
     console.log("Done initializing blockchain object");
   }  
+  
+  // Add new block from a string
+  async addBlockFromMsg(msg){
+    let newBlock = new Block(msg);
+    await this.addBlock(newBlock);
+  }
 
   // Add new block
   async addBlock(newBlock){
@@ -157,68 +160,68 @@ class Blockchain{
 /* ===== Tester ==============================
 |  Blockchain Test function 			            |
 |  ===============================================*/
-async function testBlockChain(){
-  let NumTestBlock = 10;
-  let blockchain = new Blockchain();
-
-  await blockchain.initialize();
-
-  for(let i = 0; i < NumTestBlock; ++i){
-    await blockchain.addBlock(new Block(makeRandomStr()));
-  }
-
-  await blockchain.printBlockChain();
-
-  let curBlockHeight = await blockchain.getBlockHeight();
-  console.log("Current blockchain height is " + curBlockHeight);
-
-  let curBlock = await blockchain.getBlock(curBlockHeight);
-  console.log("Current block (last block) is ");
-  console.log(curBlock);
-
-  let validateBlockRes = await blockchain.validateBlock(curBlockHeight);
-  console.log("validate Block Result is " + validateBlockRes);
-
-  let validateChainRes = await blockchain.validateChain();
-  console.log("validate Chain Result is " + validateChainRes);
-}
-
-async function testError(){
-  //let NumTestBlock = 3;
-  let blockchain = new Blockchain();
-
-  await blockchain.initialize();
-
-  //for(let i = 0; i < NumTestBlock; ++i){
-    //await blockchain.addBlock(new Block(makeRandomStr()));
-  //}
-
-  await blockchain.printBlockChain();
-
-  await blockchain.updateBlock(3, "Haha Gotcha");
-
-  await blockchain.printBlockChain();
-
-  let validateChainRes = await blockchain.validateChain();
-  console.log("validate Chain Result is " + validateChainRes);
-}
-
-async function tester(){
-  await testBlockChain();
-  await testError();
-}
-
-tester();
-
-function makeRandomStr() {
-  var text = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-  for (var i = 0; i < 5; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-  return text;
-}
+//async function testBlockChain(){
+//  let NumTestBlock = 10;
+//  let blockchain = new Blockchain();
+//
+//  await blockchain.initialize();
+//
+//  for(let i = 0; i < NumTestBlock; ++i){
+//    await blockchain.addBlock(new Block(makeRandomStr()));
+//  }
+//
+//  await blockchain.printBlockChain();
+//
+//  let curBlockHeight = await blockchain.getBlockHeight();
+//  console.log("Current blockchain height is " + curBlockHeight);
+//
+//  let curBlock = await blockchain.getBlock(curBlockHeight);
+//  console.log("Current block (last block) is ");
+//  console.log(curBlock);
+//
+//  let validateBlockRes = await blockchain.validateBlock(curBlockHeight);
+//  console.log("validate Block Result is " + validateBlockRes);
+//
+//  let validateChainRes = await blockchain.validateChain();
+//  console.log("validate Chain Result is " + validateChainRes);
+//}
+//
+//async function testError(){
+//  //let NumTestBlock = 3;
+//  let blockchain = new Blockchain();
+//
+//  await blockchain.initialize();
+//
+//  //for(let i = 0; i < NumTestBlock; ++i){
+//    //await blockchain.addBlock(new Block(makeRandomStr()));
+//  //}
+//
+//  await blockchain.printBlockChain();
+//
+//  await blockchain.updateBlock(3, "Haha Gotcha");
+//
+//  await blockchain.printBlockChain();
+//
+//  let validateChainRes = await blockchain.validateChain();
+//  console.log("validate Chain Result is " + validateChainRes);
+//}
+//
+//async function tester(){
+//  await testBlockChain();
+//  await testError();
+//}
+//
+//tester();
+//
+//function makeRandomStr() {
+//  var text = "";
+//  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+//
+//  for (var i = 0; i < 5; i++)
+//    text += possible.charAt(Math.floor(Math.random() * possible.length));
+//
+//  return text;
+//}
 
 
 
